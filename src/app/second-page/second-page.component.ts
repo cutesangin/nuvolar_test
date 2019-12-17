@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../core/services/data.service';
+import { HttpClient } from '@angular/common/http';
 
 export interface Section {
   name: string;
@@ -17,31 +18,18 @@ export interface Section {
 })
 export class SecondPageComponent implements OnInit {
   index: number;
-  followers = 0;
-  folders: Section[] = [
-    {
-      name: 'Photos',
-      updated: new Date('12/16/19'),
-    },
-    {
-      name: 'Videos',
-      updated: new Date('12/14/19'),
-    },
-    {
-      name: 'Documents',
-      updated: new Date('12/15/19'),
-    }
-  ];
+  followers: any;
+  repos: any;
 
-  options = [];
-
-  constructor(private route: ActivatedRoute, private dataService: DataService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.index = this.route.snapshot.queryParams.index;
   }
 
   ngOnInit() {
-    this.options = this.dataService.getData();
-    this.followers = this.options[this.index].followers;
+    const followersUrl = this.route.snapshot.queryParams.followers;
+    this.http.get(followersUrl).subscribe(data => this.followers = data);
+    const reposUrl = this.route.snapshot.queryParams.repos_url;
+    this.http.get(reposUrl).subscribe(data => this.repos = data);
   }
 
 }

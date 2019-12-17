@@ -1,15 +1,12 @@
-
-
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <input type="text" placeholder="Find nuvolarworks's teammates!" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
-        {{option.name}}
+      <mat-option *ngFor="let option of filteredOptions" [value]="option.login">
+        {{option.login}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
   <button color = "primary" mat-raised-button (click)="createlistfilterdata()">Search</button>
 </form>
-<app-child *ngFor="let item of listwithfilterdataonsearch ; let i=index" [name]="item.name" [index]="item.index"
-[avatar]="item.avatar" ></app-child>
+<app-child *ngFor="let user of listwithfilterdataonsearch ; let i=index" [user]="user"></app-child>

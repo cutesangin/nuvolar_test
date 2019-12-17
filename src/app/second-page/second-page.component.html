@@ -1,13 +1,12 @@
 <mat-list>
   <h3 mat-subheader>Repositories</h3>
-  <mat-list-item *ngFor="let folder of folders">
+  <mat-list-item *ngFor="let repo of repos">
     <mat-icon mat-list-icon>folder</mat-icon>
-    <h4 mat-line>{{folder.name}}</h4>
-    <p mat-line> {{folder.updated | date}} </p>
+    <h4 mat-line>{{repo.name}}</h4>
   </mat-list-item>
   <mat-divider></mat-divider>
 
   <h3 mat-subheader>Followers</h3>
-    <mat-icon mat-list-icon>person</mat-icon>
-    <h4 mat-line>{{followers}}</h4>
+  <app-child *ngFor="let user of followers ; let i=index" [user]="user"></app-child>
+
 </mat-list>
